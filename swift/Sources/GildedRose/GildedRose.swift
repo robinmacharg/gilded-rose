@@ -1,3 +1,28 @@
+/*
+ Commentary
+ ==========
+ 
+ The plan of attack was roughly:
+ 
+ * Look at the code.  Ew.  OK, that nested conditional is not maintainable.
+ * Ah, there are no tests.
+ * "GildedRose"?  That seems an unusual name.  I wonder if... Checked the repo history.  Ah, OK, I see.
+ * Google for "GildedRose"
+ * Knowing that it was a standard kata I looked at various discussions, read around the history.
+ * Look at the rules again, try and get my head round them.
+ * Rules?  OK, let's normalise them.  And if we can be declarative along the way...
+ * But first, lets's put some tests in place.
+ * Then I wrote a rule "engine". Tried a couple of rule configurations - include/exclude items,
+   before settling on the approach herein.
+ * Rewrote the tests, hand-walking various items through the rules.
+ * Fleshed out the rules and the item-map
+ * There's ambiguity in the brie/concert increases.  Separate brie-increase rule may be required.  Should
+   be a live-coding opportunity.  Left in intentionally.
+ * Test _coverage_ is good, but test _value_ is lower than it could be.  More edge cases required.
+ * There's a discussion around the rules I'd have liked to have had prior to starting work but the situation
+   didn't allow for it.
+ */
+
 // MARK: - Convenience product name constants.  Would typically come from DB
 
 public enum Constants {
