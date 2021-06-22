@@ -36,7 +36,7 @@ class GildedRoseTests: XCTestCase {
         
         let days = 20
         for i in 0..<days {
-            app.updateQuality();
+            app.updateQuality()
             print(items[0])
             XCTAssertEqual(items[0].quality, expectedQuality[i])
         }
@@ -59,8 +59,7 @@ class GildedRoseTests: XCTestCase {
         
         let days = 23
         for i in 0..<days {
-            app.updateQuality();
-            print(items[0])
+            app.updateQuality()
             XCTAssertEqual(items[0].quality, expectedQuality[i])
         }
     }
@@ -82,8 +81,7 @@ class GildedRoseTests: XCTestCase {
         
         let days = 16
         for i in 0..<days {
-            app.updateQuality();
-            print(items[0])
+            app.updateQuality()
             XCTAssertEqual(items[0].quality, expectedQuality[i])
         }
     }
@@ -99,8 +97,7 @@ class GildedRoseTests: XCTestCase {
         
         let days = 16
         for _ in 0..<days {
-            app.updateQuality();
-            print(items[0])
+            app.updateQuality()
             XCTAssertEqual(items[0].quality, 80)
         }
     }
@@ -119,7 +116,27 @@ class GildedRoseTests: XCTestCase {
         
         let days = 13
         for i in 0..<days {
-            app.updateQuality();
+            app.updateQuality()
+            XCTAssertEqual(items[0].quality, expectedQuality[i])
+        }
+    }
+    
+    func testCakeDecreases() {
+        let items = [
+            Item(name: Constants.CAKE, sellIn: 5, quality: 20),
+        ]
+        let rules: RuleMap = [
+            Constants.CAKE : [DecreaseQuality(decrement: 2), TimePasses()]
+        ]
+        let app = GildedRose(items: items, rules: rules)
+        
+        let expectedQuality = [18, 16, 14, 12, 10, 8,
+                               4, // "Once the sell by date has passed, Quality degrades twice as fast"
+                               0, 0, 0]
+        
+        let days = 10
+        for i in 0..<days {
+            app.updateQuality()
             print(items[0])
             XCTAssertEqual(items[0].quality, expectedQuality[i])
         }

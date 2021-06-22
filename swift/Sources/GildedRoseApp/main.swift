@@ -19,7 +19,7 @@ let rules: RuleMap = [
     Constants.MONGOOSE      : [DecreaseQuality(), TimePasses()],
     Constants.SULFURAS      : [],
     Constants.BACKSTAGEPASS : [IncreaseQuality(), AfterConcert(), TimePasses()],
-    Constants.CAKE          : [DecreaseQuality(), TimePasses()],
+    Constants.CAKE          : [DecreaseQuality(decrement: 2), TimePasses()],
 ]
 
 let app = GildedRose(items: items, rules: rules);

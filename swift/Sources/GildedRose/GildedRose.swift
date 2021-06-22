@@ -21,6 +21,8 @@
  * Test _coverage_ is good, but test _value_ is lower than it could be.  More edge cases required.
  * There's a discussion around the rules I'd have liked to have had prior to starting work but the situation
    didn't allow for it.
+ * Looked at the spec, noted the requirement for configurable decrement.  OK, modified the rule init(),
+   implemented a test.
  */
 
 // MARK: - Convenience product name constants.  Would typically come from DB
@@ -54,11 +56,18 @@ public class TimePasses: Rule {
  * "At the end of each day our system lowers [the quality] value for every item"
  */
 public class DecreaseQuality: Rule {
-    required public init() {}
+    
+    /// The amount to take off the quality each day
+    var decrement: Int = 1
+
+    required public init(decrement: Int = 1) {
+        self.decrement = decrement
+    }
+    
     public func execute(item: Item) {
         
         // "Once the sell by date has passed, Quality degrades twice as fast"
-        item.quality -= item.sellIn >= 0 ? 1 : 2
+        item.quality -= item.sellIn >= 0 ? decrement : decrement * 2
         
         // "The Quality of an item is never negative"
         clampQuality(item)
@@ -68,7 +77,9 @@ public class DecreaseQuality: Rule {
  * "[item] actually increases in Quality the older it gets"
  */
 public class IncreaseQuality: Rule {
+
     required public init() {}
+
     public func execute(item: Item) {
         
         // "Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less"
